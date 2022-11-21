@@ -1,9 +1,9 @@
 const { network } = require("hardhat");
-const BASE_FEE = ethers.parseEther("0.25"); // premium price to chain link, pays in link
+const BASE_FEE = ethers.utils.parseEther("0.25"); // premium price to chain link, pays in link
 const GAS_PRICE_LINK = 1e9; // limit the gas usage of eth
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { log, deploy } = deployments;
-  const deployer = await getNamedAccounts();
+  const { deployer } = await getNamedAccounts();
   const chainId = network.config.chainId;
 
   if (chainId == 31337) {
