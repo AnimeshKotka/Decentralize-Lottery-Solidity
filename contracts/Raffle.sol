@@ -99,12 +99,17 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
             bytes memory /** performData */
         )
     {
-        bool isOpen = s_raffleState == RaffleState.OPEN;
-        upkeepNeeded =
-            isOpen &&
-            (block.timestamp - s_lastTimeStamp > i_interval) &&
-            s_players.length > 2 &&
-            address(this).balance > 0;
+        bool isOpen = RaffleState.OPEN == s_raffleState;
+        bool timePassed = ((block.timestamp - s_lastTimeStamp) > i_interval);
+        bool hasPlayers = s_players.length > 0;
+        bool hasBalance = address(this).balance > 0;
+        upkeepNeeded = (timePassed && isOpen && hasBalance && hasPlayers);
+        // bool isOpen = (s_raffleState == RaffleState.OPEN);
+        // upkeepNeeded = (isOpen &&
+        //     (block.timestamp - s_lastTimeStamp > i_interval) &&
+        //     (s_players.length > 2) &&
+        //     (address(this).balance) > 0);
+        return (upkeepNeeded, "0x0"); // can we comment this out?
     }
 
     function performUpkeep(
@@ -170,6 +175,10 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
 
     function getPlayerNumbers() public view returns (uint256) {
         return s_players.length;
+    }
+
+    function getInterval() public view returns (uint256) {
+        return i_interval;
     }
 
     function getLatestTimeStamp() public view returns (uint256) {
