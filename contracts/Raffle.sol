@@ -185,4 +185,4 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         return s_lastTimeStamp;
     }
 }
-// https://youtu.be/gyMwXuJrbJQ?t=56351
+// https://youtu.be/gyMwXuJrbJQ?t=59562

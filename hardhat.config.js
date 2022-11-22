@@ -22,7 +22,6 @@ module.exports = {
       url: process.env.GOERLI_RPC_URL__,
       accounts: [PRIVATE_KEY],
       chainId: 5,
-      blockConfirmations: 6,
     },
   },
   solidity: "0.8.17",
@@ -42,7 +41,23 @@ module.exports = {
       default: 1,
     },
   },
+  etherscan: {
+    // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
+    apiKey: {
+      goerli: ETHERSCAN_API_KEY,
+    },
+    customChains: [
+      {
+        network: "goerli",
+        chainId: 5,
+        urls: {
+          apiURL: "https://api-goerli.etherscan.io/api",
+          browserURL: "https://goerli.etherscan.io",
+        },
+      },
+    ],
+  },
   mocha: {
-    timeout: 200000, // 200s
+    timeout: 300000, // 200s
   },
 };
