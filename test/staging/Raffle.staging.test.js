@@ -44,11 +44,11 @@ developmentChains.includes(network.name)
                   winnerStartingBalance.add(raffleEntranceFee).toString()
                 );
                 assert(endingTimeStamp > startingTimeStamp);
-                resolve();
               } catch (error) {
                 console.log(error);
                 reject(error);
               }
+              resolve();
             });
             // Then entering the raffle
             console.log("Entering Raffle...");
